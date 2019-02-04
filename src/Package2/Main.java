@@ -1,39 +1,52 @@
 package Package2;
 
-public class Main {
-    public static void main(String[] args) {
-        String str = "кот ток рост трос"; // исходное предложение
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
+public class Main {
+    private static char[] a;
+    private static int size;
+
+    public static void main(String[] args) {
+        String str = "кот ток рост трос отк кот"; // исходное предложение
         System.out.println("В строке " + checkAnagram(str) + " анаграмм.");
     }
 
+    // по идее, такой большой код, я бы вывел в отдельный класс
+
     private static int checkAnagram(String s1) {
-        int count = 0;
+        int result = 0;
+
+        Map map = new HashMap<String, Integer>();
 
         String[] sArr = s1.split(" ");
 
-        for (int i = 0; i < sArr.length-1; i++) {
-            if (sArr[i].length()==sArr[i+1].length()) {
-                if (checkEqual(sArr[i].toCharArray(), sArr[i].toCharArray()))
-                    count++;
-            }
-        }
-        return count;
-    }
+        List<String> arrayList = new ArrayList<String>();
 
-    private static boolean checkEqual(char[] a, char[] b) {
-        boolean result = false;
-        int sum1 = 0;
-        int sum2 = 0;
+        for (int i = 0; i < sArr.length; i++) {
+            char[] ch = sArr[i].toCharArray();
 
-        for (int i = 0; i < a.length; i++) {
-            sum1 += a[i];
-            sum2 += b[i];
+            Stream<Character> myStreamOfCharacters = IntStream
+                    .range(0, ch.length)
+                    .mapToObj(ii -> ch[ii]);
+
+            List<Character> list = myStreamOfCharacters.collect(Collectors.toList());
+            Set<Character> set = new TreeSet<>(list);
+
+            String s3 = set.stream().map(String::valueOf).collect(Collectors.joining());
+            arrayList.add(s3);
         }
 
-        if (sum1==sum2)
-            result = true;
+        HashMap<String, Integer> hm = new HashMap<String , Integer>();
+        Integer am;
+        for (String i : arrayList) {
 
+            am = hm.get(i);
+            hm.put(i, am == null ? 1 : am + 1);
+        }
+        System.out.println(hm);
         return result;
     }
 }
