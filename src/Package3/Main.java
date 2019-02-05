@@ -45,7 +45,6 @@ public class Main {
                 if (isNull) {
                     if (arr2[j] == null) {
                         al.remove(j);
-//                        continue;
                     }
                 } else {
                     if (arr2[i].equals(arr2[j]))
@@ -57,6 +56,6 @@ public class Main {
 
         result = (T[]) al.toArray();
         return result;
-        
+
     }
 }
