@@ -1,52 +1,52 @@
 package Package2;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     private static char[] a;
     private static int size;
 
     public static void main(String[] args) {
-        String str = "кот ток рост трос отк кот"; // исходное предложение
-        System.out.println("В строке " + checkAnagram(str) + " анаграмм.");
+        String str = "кот ток рост банан трос отк"; // исходное предложение
+        System.out.println("Исходное предложение \"" + str + "\"\n");
+        checkAnagram(str);
     }
 
-    // по идее, такой большой код, я бы вывел в отдельный класс
-
-    private static int checkAnagram(String s1) {
-        int result = 0;
-
-        Map map = new HashMap<String, Integer>();
-
+    private static void checkAnagram(String s1) {
         String[] sArr = s1.split(" ");
-
-        List<String> arrayList = new ArrayList<String>();
+        Pattern p = null;
+        Matcher m = null;
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        int anagramcount = 0;
 
         for (int i = 0; i < sArr.length; i++) {
-            char[] ch = sArr[i].toCharArray();
+            if (sArr[i] != null) {
+                p = Pattern.compile("^[" + sArr[i] + "]{" + sArr[i].length() + "}$");
+                sb.append(sArr[i]);
+            } else
+                continue;
+            for (int j = i+1; j < sArr.length; j++) {
+                if (sArr[j] == null) continue;
+                m = p.matcher(sArr[j]);
+                if (m.matches()) {
+                    sb.append(", " + sArr[j]);
+                    sArr[j] = null;
+                    count++; //?
+                }
+            }
+            if (sb.length() > sArr[i].length()) anagramcount++;
 
-            Stream<Character> myStreamOfCharacters = IntStream
-                    .range(0, ch.length)
-                    .mapToObj(ii -> ch[ii]);
+            if (count!=0) System.out.println("    [" + sb + "] " + "- анаграмма");
 
-            List<Character> list = myStreamOfCharacters.collect(Collectors.toList());
-            Set<Character> set = new TreeSet<>(list);
+            sb.setLength(0);
 
-            String s3 = set.stream().map(String::valueOf).collect(Collectors.joining());
-            arrayList.add(s3);
+            count = 0;
         }
 
-        HashMap<String, Integer> hm = new HashMap<String , Integer>();
-        Integer am;
-        for (String i : arrayList) {
+        System.out.println("\nВ предложении " + anagramcount + " анаграмм.");
 
-            am = hm.get(i);
-            hm.put(i, am == null ? 1 : am + 1);
         }
-        System.out.println(hm);
-        return result;
-    }
 }
+
