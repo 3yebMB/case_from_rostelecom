@@ -1,11 +1,8 @@
 package Package3;
 
-import com.sun.deploy.util.ArrayUtil;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,25 +10,24 @@ public class Main {
 
         System.out.println("Исходный массив : " + Arrays.toString(intArr));
 
-        intArr = method2(intArr);
+        intArr = method1(intArr);
+//        intArr = method2(intArr);
 
         System.out.println("Массив без повторяющиъся элементов : " + Arrays.toString(intArr));
     }
 
     private static Object[] method1(Object[] arr1) {
-        Object[] result = null;
-        Object[] tmpArr = null;
-        for (int i = 0; i < arr1.length-1 ; i++) {
-            if (arr1[i].equals(arr1[i+1])) {
-                System.arraycopy(arr1, i, tmpArr, 0, tmpArr.length);
-            }
-            System.arraycopy(tmpArr, 0, result, result.length-1, result.length);
+        HashSet<Object> hs = new HashSet<>();
+
+        for (int i = 0; i < arr1.length; i++) {
+            if (hs.contains(arr1[i])) hs.remove(arr1[i]);
+            else hs.add(arr1[i]);
         }
-        return result;
+
+        return hs.toArray();
     }
 
     private static <T> T[] method2(T[] arr2) {
-        T[] result = null;
         boolean isNull = false;
         ArrayList<T> al = new ArrayList<>(Arrays.asList(arr2));
         int lenArr = 0;
@@ -54,8 +50,7 @@ public class Main {
             if (lenArr != al.size()) al.remove(arr2[i]);
         }
 
-        result = (T[]) al.toArray();
-        return result;
+        return (T[]) al.toArray();
 
     }
 }
