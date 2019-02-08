@@ -11,9 +11,9 @@ public class Main {
         System.out.println("Исходный массив : " + Arrays.toString(intArr));
 
         intArr = method1(intArr);
-//        intArr = method2(intArr);
-
-        System.out.println("Массив без повторяющиъся элементов : " + Arrays.toString(intArr));
+        System.out.println("Массив без повторяющиъся элементов 1 метод : " + Arrays.toString(intArr));
+        intArr = method2(intArr);
+        System.out.println("Массив без повторяющиъся элементов 2 метод : " + Arrays.toString(intArr));
     }
 
     private static Object[] method1(Object[] arr1) {
