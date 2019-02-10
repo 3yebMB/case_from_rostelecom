@@ -1,16 +1,25 @@
 package Package2;
 
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
     private static char[] a;
     private static int size;
+    private static long t;
 
     public static void main(String[] args) {
         String str = "кот ток рост банан трос отк"; // исходное предложение
         System.out.println("Исходное предложение \"" + str + "\"\n");
+        t = System.currentTimeMillis();
         checkAnagram(str);
+        System.out.println("My method has done in " + (System.currentTimeMillis()-t) + " ms");
+
+        t = System.currentTimeMillis();
+        Anagrams anagram = new Anagrams(Collections.singletonList(str));
+        anagram.getAnagrams(str);
+        System.out.println("Not my method has done in " + (System.currentTimeMillis()-t) + " ms");
     }
 
     private static void checkAnagram(String s1) {
