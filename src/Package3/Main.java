@@ -19,9 +19,9 @@ public class Main {
     private static Object[] method1(Object[] arr1) {
         HashSet<Object> hs = new HashSet<>();
 
-        for (int i = 0; i < arr1.length; i++) {
-            if (hs.contains(arr1[i])) hs.remove(arr1[i]);
-            else hs.add(arr1[i]);
+        for (Object o : arr1) {
+            if (hs.contains(o)) hs.remove(o);
+            else hs.add(o);
         }
 
         return hs.toArray();

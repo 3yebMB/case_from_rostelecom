@@ -40,7 +40,7 @@ public class Main {
                 if (sArr[j] == null) continue;
                 m = p.matcher(sArr[j]);
                 if (m.matches()) {
-                    sb.append(", " + sArr[j]);
+                    sb.append(", ").append(sArr[j]);
                     sArr[j] = null;
                     count++; //?
                 }
